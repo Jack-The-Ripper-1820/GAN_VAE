@@ -2,7 +2,51 @@
 
 WIP - Only the initial GAN on the MNIST has been implemented, still have to optimize it. 
 
-# REPORT 1
+# REPORT
+
+## REPORT 2 
+
+Introduction
+Variational autoencoders (VAEs) are a popular generative model used for image generation, anomaly detection, and data compression. VAEs are a type of autoencoder that can learn a low-dimensional representation of high-dimensional data. The low-dimensional representation is known as the latent space, which can be used to generate new data similar to the training data. In this report, I will discuss how I came up with a VAE implementation for image generation using TensorFlow.
+
+Background
+Autoencoders are neural networks that learn to reconstruct input data. They consist of two parts: an encoder that maps the input data to a latent representation and a decoder that maps the latent representation to the output data. The latent representation is typically lower dimensional than the input data, and it is learned through a process of minimizing the reconstruction loss between the input data and the output data.
+
+VAEs extend the basic autoencoder by learning a probability distribution over the latent space. The goal is to make the latent space "smooth" so that nearby points in the latent space produce similar output data. This is achieved by learning the mean and variance of the distribution over the latent space, and then sampling from this distribution to generate new data.
+
+Implementation
+My implementation of the VAE for image generation is based on the TensorFlow framework. I started with a naive implementation of a basic autoencoder for image reconstruction. I then extended this implementation to include the VAE architecture.
+
+The VAE consists of two parts: an encoder and a decoder. The encoder consists of three convolutional layers followed by a fully connected layer that outputs the mean and variance of the distribution over the latent space. The decoder consists of a fully connected layer followed by three transposed convolutional layers that generate the output image.
+
+To train the VAE, I used the Adam optimizer with a learning rate of 1e-4. I also used the mean squared error as the reconstruction loss and the Kullback-Leibler (KL) divergence as the regularization loss. The total loss is the sum of the reconstruction loss and the KL loss.
+
+The loss function for a VAE consists of two components: the reconstruction loss and the KL divergence loss. The reconstruction loss measures the difference between the original input and the output of the decoder network. The KL divergence loss measures the difference between the distribution of the latent variables and a unit Gaussian distribution.
+
+The reconstruction loss can be computed as the mean squared error (MSE) between the original input and the reconstructed output:
+
+$$\mathcal{L}{\text{recon}} = \frac{1}{N}\sum{i=1}^{N}\left(\boldsymbol{x}_i - \boldsymbol{x}_i^{\text{recon}}\right)^2$$
+
+where $N$ is the number of training examples, $\boldsymbol{x}_i$ is the $i$-th training example, and $\boldsymbol{x}_i^{\text{recon}}$ is the reconstructed output for the $i$-th training example.
+
+The KL divergence loss can be computed as follows:
+
+$$\mathcal{L}{\text{KL}} = -\frac{1}{2N}\sum{i=1}^{N}\left(1 + \log\left(\boldsymbol{\sigma}_i^2\right) - \boldsymbol{\mu}_i^2 - \boldsymbol{\sigma}_i^2\right)$$
+
+where $\boldsymbol{\mu}_i$ and $\boldsymbol{\sigma}_i$ are the mean and standard deviation of the latent variables for the $i$-th training example.
+
+The total loss for the VAE is then the sum of the reconstruction loss and the KL divergence loss:
+
+$$\mathcal{L} = \mathcal{L}{\text{recon}} + \beta \cdot \mathcal{L}{\text{KL}}$$
+
+where $\beta$ is a hyperparameter that controls the weighting of the KL divergence loss.
+
+
+Trained the VAE on the MNIST dataset, which consists of 60,000 28x28 grayscale images of handwritten digits. Iused a batch size of 128 and trained the model for 30 epochs.
+
+However, it is important to note that the training process is still ongoing and I expect to obtain even better results with more training epochs. The use of VAE has shown promising results in image generation tasks and can be applied in various other domains for generating new data points. In conclusion, this implementation highlights the effectiveness of VAE in generating high-quality images and can serve as a baseline for future research in this field.
+
+## previous report
 
 Generative Adversarial Networks (GANs) are a class of machine learning models designed for generative tasks, such as generating new, synthetic data instances. The main idea behind GANs is to train two neural networks, a generator network and a discriminator network, in a two-player game framework. The generator network aims to generate new, synthetic data instances that are indistinguishable from real data, while the discriminator network aims to distinguish between real data instances and synthetic data instances generated by the generator network.
 
@@ -69,17 +113,4 @@ where G is the generator, D is the discriminator, x is a real sample from the da
 
 By alternating the optimization of the generator and the discriminator, the Minimax loss function trains the two networks to play a minimax game, where the generator tries to produce samples that the discriminator cannot distinguish from real samples, and the discriminator tries to classify samples as accurately as possible. Over time, the generator and discriminator improve, and the generated samples become increasingly realistic.
 
-
-## To be implemented 
-
-### Variational Autoencoder (VAE) on MNIST (To be implemented by part 2) 
-### GAN and VAE on Face Images (To be implemented by part 3)
-
-A Variational Autoencoder (VAE) is a generative model that learns a compact representation of the data by encoding it into a lower-dimensional space. The decoder network then generates the data samples from this lower-dimensional representation.
-
-In the context of MNIST, the VAE model will learn to encode the handwritten digit images into a lower-dimensional space and then generate new images that are similar to the original images.
-
-Implementation of VAE on MNIST is going to be performed shortly, and the results will be compared with the GAN model on MNIST. This comparison will provide insights into the strengths and weaknesses of VAEs and GANs, and help us understand which model is better suited for generating MNIST images.
-
-Later, the plan is to extend the implementation to face images. This extension will help us understand how well VAEs and GANs perform on more complex and high-dimensional data, such as face images. By doing so, we hope to provide a comprehensive analysis of the performance of VAEs and GANs on different types of data.
 
