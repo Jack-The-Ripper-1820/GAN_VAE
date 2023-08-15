@@ -1,10 +1,4 @@
-# Comparison of GAN and VAE on MNIST and Face Image Generation (Machine Learning Course Project)
-
-WIP - Only the initial GAN on the MNIST has been implemented, still have to optimize it. 
-
 # REPORT
-
-## REPORT 2 
 
 Introduction
 Variational autoencoders (VAEs) are a popular generative model used for image generation, anomaly detection, and data compression. VAEs are a type of autoencoder that can learn a low-dimensional representation of high-dimensional data. The low-dimensional representation is known as the latent space, which can be used to generate new data similar to the training data. In this report, I will discuss how I came up with a VAE implementation for image generation using TensorFlow.
